@@ -1,5 +1,7 @@
 const { Events } = require("discord.js");
 const { setCounter, getCounter } = require("../leaderboard.js");
+const { client } = require("../client.js");
+const { gptReply } = require("../gubgpt.js");
 
 function wordCounter(word, test) {
   let counter = 0;
@@ -21,6 +23,11 @@ function wordCounter(word, test) {
 module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
+    if (message.mentions.has(client.user)) {
+      const response = await gptReply(message.content);
+      await message.reply(response);
+    }
+
     if (message.author.bot) return;
 
     const gubbedAmount = wordCounter(message.content, "gub");
