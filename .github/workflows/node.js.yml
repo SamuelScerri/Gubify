@@ -30,4 +30,4 @@ jobs:
     - run: npm run build --if-present
     - run: node .
       env:
-        TOKEN: ${{ secrets.TOKEN }}
+        TOKEN: ${{ secrets.Secrets }}
