@@ -2,7 +2,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Collection } = require("discord.js");
 const { client } = require("./client.js");
-const { token } = require("./config.json");
 
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, "commands");
@@ -41,4 +40,4 @@ for (const file of eventFiles) {
   }
 }
 
-client.login(token);
+client.login(process.env.TOKEN);
