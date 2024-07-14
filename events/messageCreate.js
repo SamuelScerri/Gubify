@@ -1,7 +1,7 @@
 const { Events } = require("discord.js");
 const { setCounter, getCounter } = require("../leaderboard.js");
 const { client } = require("../client.js");
-const { gptReply } = require("../gubgpt.js");
+const { gptReply, addToQueue } = require("../gubgpt.js");
 
 const {
   MessageMentions: { USERS_PATTERN },
@@ -40,10 +40,6 @@ module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
     if (message.mentions.has(client.user)) {
-      await message.channel.sendTyping();
-
-      console.log(message.attachments);
-
       const split_message = message.content.split(" ");
       let formatted_message = "";
 
@@ -60,12 +56,12 @@ module.exports = {
         } else formatted_message += `${message} `;
       });
 
-      const response = await gptReply(
-        formatted_message,
-        message.author.globalName,
-        message.attachments,
-      );
-      await message.reply(response);
+      addToQueue({
+        interaction: message,
+        message: formatted_message,
+        name: message.author.globalName,
+        attachments: message.attachments,
+      });
     }
 
     if (message.author.bot) return;
