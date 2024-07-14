@@ -55,9 +55,7 @@ module.exports = {
             if (isBot) formatted_message += "'Gub Gub' ";
             else formatted_message += `'${snippet.globalName}' `;
           }
-        } else {
-          formatted_message += `${message} `;
-        }
+        } else formatted_message += `${message} `;
       });
 
       const response = await gptReply(
