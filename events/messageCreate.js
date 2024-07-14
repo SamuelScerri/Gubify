@@ -54,15 +54,12 @@ module.exports = {
           //If the bot is mentioned in the first word, then ignore it!
           if (!(i == 0 && isBot)) {
             if (isBot) formatted_message += "'Gub Gub' ";
-            else formatted_message += `'${snippet.username}' `;
+            else formatted_message += `'${snippet.globalName}' `;
           }
         } else {
           formatted_message += `${message} `;
         }
       });
-
-      console.log("Crap Idiot");
-      console.log(formatted_message);
 
       const response = await gptReply(
         formatted_message,
