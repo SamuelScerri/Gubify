@@ -42,6 +42,8 @@ module.exports = {
     if (message.mentions.has(client.user)) {
       await message.channel.sendTyping();
 
+      console.log(message.attachments);
+
       const split_message = message.content.split(" ");
       let formatted_message = "";
 
@@ -61,6 +63,7 @@ module.exports = {
       const response = await gptReply(
         formatted_message,
         message.author.globalName,
+        message.attachments,
       );
       await message.reply(response);
     }

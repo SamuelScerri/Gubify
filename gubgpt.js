@@ -9,15 +9,26 @@ module.exports = {
     thread = await openai.beta.threads.create();
   },
 
-  async gptReply(message, name) {
+  async gptReply(message, name, attachments) {
     if (thread == null) {
       console.log("No thread found! Creating new thread");
       thread = await openai.beta.threads.create();
     }
 
+    let content = [{ type: "text", text: `(user: ${name}) ${message}.` }];
+
+    attachments.forEach((attached) => {
+      content.push({
+        type: "image_url",
+        image_url: {
+          url: attached.attachment,
+        },
+      });
+    });
+
     const newMessage = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
-      content: `(user: ${name}) ${message}.`,
+      content: content,
     });
 
     let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
