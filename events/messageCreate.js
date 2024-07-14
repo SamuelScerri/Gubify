@@ -51,7 +51,6 @@ module.exports = {
         if (snippet) {
           const isBot = snippet.id === client.user.id;
 
-          //If the bot is mentioned in the first word, then ignore it!
           if (!(i == 0 && isBot)) {
             if (isBot) formatted_message += "'Gub Gub' ";
             else formatted_message += `'${snippet.globalName}' `;
