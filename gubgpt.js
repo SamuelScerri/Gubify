@@ -4,6 +4,11 @@ const openai = new OpenAI();
 let thread = null;
 
 module.exports = {
+  async gptReset() {
+    console.log("Resetting thread");
+    thread = await openai.beta.threads.create();
+  },
+
   async gptReply(message, name) {
     if (thread == null) {
       console.log("No thread found! Creating new thread");
