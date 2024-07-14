@@ -24,7 +24,10 @@ module.exports = {
   name: Events.MessageCreate,
   async execute(message) {
     if (message.mentions.has(client.user)) {
-      const response = await gptReply(message.content);
+      const response = await gptReply(
+        message.content,
+        message.author.globalName,
+      );
       await message.reply(response);
     }
 

@@ -2,7 +2,7 @@ const { OpenAI } = require("openai");
 const openai = new OpenAI();
 
 module.exports = {
-  async gptReply(message) {
+  async gptReply(message, name) {
     const thread = await openai.beta.threads.create();
 
     const newMessage = await openai.beta.threads.messages.create(thread.id, {
@@ -12,6 +12,7 @@ module.exports = {
 
     let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
       assistant_id: "asst_2xC7h3wvcLLxSxDVfLX206FB",
+      additional_instructions: `You are talking to '${name}'.`,
     });
 
     if (run.status === "completed") {
