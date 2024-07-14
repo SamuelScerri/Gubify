@@ -19,7 +19,7 @@ async function gptSync() {
       currentMessage.attachments,
     );
 
-    currentMessage.interaction.reply(response);
+    await currentMessage.interaction.reply(response);
 
     messageQueue.shift();
 
