@@ -12,12 +12,11 @@ module.exports = {
 
     const newMessage = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
-      content: message,
+      content: `(user: ${name}) ${message}.`,
     });
 
     let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
       assistant_id: "asst_2xC7h3wvcLLxSxDVfLX206FB",
-      additional_instructions: `You are talking to '${name}'.`,
     });
 
     if (run.status === "completed") {
