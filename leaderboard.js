@@ -22,25 +22,34 @@ const Users = sequelize.define("users", {
 
 sequelize.sync();
 
+async function getCounter(userId) {
+  try {
+    const user = await Users.findOne({ where: { id: userId } });
+    return user.get("counter");
+  } catch (error) {
+    console.log("User doesn't exist, creating new user");
+
+    await Users.create({
+      id: userId,
+      counter: 0,
+    });
+
+    return 0;
+  }
+}
+
 module.exports = {
-  async setCounter(userId, counter) {
-    await Users.update({ counter: counter }, { where: { id: userId } });
-  },
+  async setCounter(message) {
+    const totalGubbedAmount =
+      (await getCounter(message.interaction.author.id)) + message.counter;
 
-  async getCounter(userId) {
-    try {
-      const user = await Users.findOne({ where: { id: userId } });
-      return user.get("counter");
-    } catch (error) {
-      console.log("User doesn't exist, creating new user");
-
-      user = await Users.create({
-        id: userId,
-        counter: 0,
-      });
-
-      return 0;
-    }
+    await Users.update(
+      { counter: totalGubbedAmount },
+      { where: { id: message.interaction.author.id } },
+    );
+    await message.interaction.reply(
+      `${message.interaction.author.globalName} has gubbed ${totalGubbedAmount} times in total`,
+    );
   },
 
   async getAll() {

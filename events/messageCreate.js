@@ -1,40 +1,7 @@
 const { Events } = require("discord.js");
-const { setCounter, getCounter } = require("../leaderboard.js");
 const { client } = require("../client.js");
-const { gptReply, addToQueue } = require("../gubgpt.js");
-
-const {
-  MessageMentions: { USERS_PATTERN },
-} = require("discord.js");
-
-function getUserFromMention(mention) {
-  if (mention.startsWith("<@") && mention.endsWith(">")) {
-    mention = mention.slice(2, -1);
-
-    if (mention.startsWith("!")) {
-      mention = mention.slice(1);
-    }
-
-    return client.users.cache.get(mention);
-  } else return null;
-}
-
-function wordCounter(word, test) {
-  let counter = 0;
-
-  let formattedWord = word
-    .toLowerCase()
-    .replace(/(.)\1+/g, "$1")
-    .replace(/\s/g, "");
-
-  const wordArray = formattedWord.split("");
-
-  wordArray.forEach((char, i) => {
-    if (wordArray.slice(i, i + 3).join("") === test) counter++;
-  });
-
-  return counter;
-}
+const { addToQueue } = require("../queue.js");
+const { getUserFromMention, wordCounter } = require("../helpers.js");
 
 module.exports = {
   name: Events.MessageCreate,
@@ -56,11 +23,14 @@ module.exports = {
         } else formatted_message += `${message} `;
       });
 
-      addToQueue({
-        interaction: message,
-        message: formatted_message,
+      await addToQueue({
+        type: "gpt",
+
+        content: formatted_message,
         name: message.author.globalName,
         attachments: message.attachments,
+
+        interaction: message,
       });
     }
 
@@ -69,14 +39,12 @@ module.exports = {
     const gubbedAmount = wordCounter(message.content, "gub");
 
     if (gubbedAmount > 0) {
-      const totalGubbedAmount =
-        (await getCounter(message.author.id)) + gubbedAmount;
+      await addToQueue({
+        type: "gub",
 
-      await setCounter(message.author.id, totalGubbedAmount);
-
-      message.reply(
-        `${message.author.globalName} has gubbed ${totalGubbedAmount} times in total`,
-      );
+        counter: gubbedAmount,
+        interaction: message,
+      });
     }
   },
 };
