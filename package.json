@@ -4,6 +4,7 @@
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
     "keyv": "^4.5.4",
+    "node_characterai": "^1.2.7",
     "openai": "^4.52.7",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"
