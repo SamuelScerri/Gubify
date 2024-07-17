@@ -11,9 +11,6 @@
   "name": "gubify",
   "version": "1.1.0",
   "description": "Gubify Source Code",
-  "scripts": {
-    "start": "node --env-file=.env ."
-  },
   "main": "index.js",
   "type": "module",
   "author": "Samuel Scerri",
