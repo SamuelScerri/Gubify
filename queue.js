@@ -1,5 +1,5 @@
-const { gptReply } = require("./gubgpt.js");
-const { setCounter } = require("./leaderboard.js");
+import { gptReply } from "./gubgpt.js";
+import { setCounter } from "./leaderboard.js";
 
 let queue = [];
 
@@ -26,15 +26,13 @@ async function processQueue() {
   }
 }
 
-module.exports = {
-  async addToQueue(message) {
-    queue.push(message);
+export async function addToQueue(message) {
+  queue.push(message);
 
-    if (processingQueue == false) {
-      console.log("Starting Queue");
-      processingQueue = true;
+  if (processingQueue == false) {
+    console.log("Starting Queue");
+    processingQueue = true;
 
-      await processQueue();
-    }
-  },
-};
+    await processQueue();
+  }
+}

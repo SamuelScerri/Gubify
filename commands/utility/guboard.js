@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require("discord.js");
-const { client, getUserById } = require("../../client.js");
-const { getAll } = require("../../leaderboard.js");
+import { SlashCommandBuilder } from "discord.js";
+import { client, getUserById } from "../../client.js";
+import { getAll } from "../../leaderboard.js";
 
 async function buildLeaderBoardText(users) {
   let leaderboardText = "";
@@ -15,13 +15,11 @@ async function buildLeaderBoardText(users) {
   return leaderboardText;
 }
 
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName("guboard")
-    .setDescription("Get Gub leaderboard!"),
-  async execute(interaction) {
-    const users = await getAll();
-    const leaderboardText = await buildLeaderBoardText(users);
-    await interaction.reply(leaderboardText);
-  },
-};
+export const data = new SlashCommandBuilder()
+  .setName("guboard")
+  .setDescription("Get Gub leaderboard!");
+export async function execute(interaction) {
+  const users = await getAll();
+  const leaderboardText = await buildLeaderBoardText(users);
+  await interaction.reply(leaderboardText);
+}

@@ -1,6 +1,6 @@
-const { Client, GatewayIntentBits } = require("discord.js");
+import { Client, GatewayIntentBits } from "discord.js";
 
-const client = new Client({
+export const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
@@ -8,10 +8,6 @@ const client = new Client({
   ],
 });
 
-module.exports = {
-  client: client,
-
-  async getUserById(userId) {
-    return client.users.fetch(userId);
-  },
-};
+export async function getUserById(userId) {
+  return client.users.fetch(userId);
+}
