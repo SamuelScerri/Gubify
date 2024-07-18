@@ -43,7 +43,7 @@ export async function gptReply(message) {
 
     const newMessage = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
-      content: `[Image: ${attachmentDescription}] [User: ${message.name}:] [Message: ${message.content}]`,
+      content: `[${message.name}] [${attachmentDescription}] [${message.content}]`,
     });
 
     let run = await openai.beta.threads.runs.createAndPoll(thread.id, {
