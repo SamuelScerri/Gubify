@@ -6,7 +6,26 @@ A Discord bot that acts like a goofy goblin named Gub Gub. [Click here to add it
 
 ![image](https://github.com/user-attachments/assets/0798b377-b1a0-4dbc-9111-b4b60faab788)
 
+# Goofing off with Gub Gub:
+Tag Gub Gub to chat with him!
+
+![image](https://github.com/user-attachments/assets/4302c197-5706-4d44-9d95-6566312d0dad)
+
+Gubotamize him to reset the conversation!
+
+![image](https://github.com/user-attachments/assets/49cf9c2c-271a-482f-aba3-fd67f70687a7)
+
+Use Gubify to append something to every word in your message!
+
+![image](https://github.com/user-attachments/assets/0da43c36-c5e0-42e3-b033-e010b1ffc145)
+
+Check out the leaderboard to see who gubbed the most!
+
+![image](https://github.com/user-attachments/assets/308fd267-6052-403e-8a29-994f88847f9d)
+
 # Notes:
+
+**VERY IMPORTANT**: Currently the chat conversation and leaderboard is shared between ALL discord servers, this will be fixed as soon as possible! So don't write any private info, oke doke?
 
 Earlier versions used GPT 4o for both chatting and image detection, which was quite expensive to run. Therefore GPT 4o is only used for image detection and GPT 3.5 is used for chatting,
 it's not super difficult to make it run completely on GPT 4o, check out `gubgpt.js` and mess around in it. A seperate branch will be created later which will use GPT 4o only.
